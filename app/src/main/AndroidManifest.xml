@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Educational"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Checkouts"
+            android:exported="false" />
+        <activity
             android:name=".ui.Home"
             android:exported="false" />
         <activity
