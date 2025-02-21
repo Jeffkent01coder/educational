@@ -5,10 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello_cat_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="My Cart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cartRecyclerView"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            tools:listitem="@layout/cart_item"
+            android:layout_height="match_parent"
+
+            />
+
+
+    </LinearLayout>
 
 </FrameLayout>

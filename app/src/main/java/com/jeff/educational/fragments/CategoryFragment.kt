@@ -5,56 +5,72 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jeff.educational.R
+import com.jeff.educational.adapters.CartAdapter
+import com.jeff.educational.databinding.FragmentCategoryBinding
+import com.jeff.educational.model.ProductData
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CategoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class CategoryFragment : Fragment(), CartAdapter.OnCartClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCategoryBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var adapter: CartAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var cartArrayList: ArrayList<ProductData>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false)
+    ): View {
+        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CategoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CategoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        dataInitialize()
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.cartRecyclerView)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = CartAdapter(cartArrayList, this)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
     }
+
+    private fun dataInitialize() {
+        cartArrayList = arrayListOf(
+            ProductData("", R.drawable.bmw, "BMW", "3", "", "$ 30000"),
+            ProductData("", R.drawable.audi, "Audi", "2 ", "", "$ 20000"),
+            ProductData("", R.drawable.car, "Mazda", "1", "", "$ 10000"),
+            ProductData("", R.drawable.benz, "Benz", "3", "", "$ 25000"),
+            ProductData("", R.drawable.bmw, "BMW", "3", "", "$ 30000"),
+            ProductData("", R.drawable.audi, "Audi", "2 ", "", "$ 20000"),
+            ProductData("", R.drawable.car, "Mazda", "1", "", "$ 10000"),
+            ProductData("", R.drawable.benz, "Benz", "3", "", "$ 25000"),
+            )
+    }
+
+    override fun onAddClick(product: ProductData, position: Int) {
+        Toast.makeText(requireActivity(), "Added", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSubtractClick(product: ProductData, position: Int) {
+        Toast.makeText(requireActivity(), "Subtracted", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDeleteClick(product: ProductData, position: Int) {
+        Toast.makeText(requireActivity(), "Deleted", Toast.LENGTH_SHORT).show()
+    }
+
 }
