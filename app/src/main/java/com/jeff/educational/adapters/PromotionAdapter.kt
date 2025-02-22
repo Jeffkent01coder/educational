@@ -16,7 +16,6 @@ class PromotionAdapter(
         RecyclerView.ViewHolder(promotionItemBinding.root) {
         fun setData(product: ProductData, action: OnPromoClickListener) {
             promotionItemBinding.apply {
-                productTitle.text = product.productTitle
                 promoTitle.text = product.promotionTitle
                 product.productImage?.let { productImage.setImageResource(it) }
             }
